@@ -27,7 +27,7 @@ export class Generate extends Command  {
     @CommandParameter({ description: 'Template path', alias: 't',})
     templatePath: string = "";
 
-    @CommandParameter({ description: 'Template language ejs or handlebars', alias: 'l', defaults: 'ejs'})
+    @CommandParameter({ description: 'Template language. Currently supported: ejs and  handlebars', alias: 'l', defaults: 'ejs'})
     templateLanguage: string = "ejs";
 
     execute(yargs: any): void {
