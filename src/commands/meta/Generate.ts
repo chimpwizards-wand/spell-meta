@@ -8,18 +8,17 @@ import * as path from 'path';
 import * as _ from 'lodash';  
 
 const chalk = require('chalk');
-const debug = Debug("w:cli:meta:model");
-import { Generator } from '../../commons/Generator';
+const debug = Debug("w:cli:meta:generate");
 
 @CommandDefinition({ 
     description: 'Code generator',
     alias: 'g',
     parent: 'meta',  
     examples: [
-        [`w meta generator`, `Generate code based on a template`],
+        [`w meta generate --model helloworld.wml --template-path templates`, `Generate code based on a template`],
     ]
 })
-export class Generate extends Generator  { 
+export class Generate extends Command  { 
 
     @CommandParameter({ description: 'Workspace name', alias: 'n',})
     name: string = "";

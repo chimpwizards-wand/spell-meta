@@ -9,22 +9,20 @@ import * as _ from 'lodash';
 
 const chalk = require('chalk');
 const debug = Debug("w:cli:meta:model");
-import simpleGit, { SimpleGit, SimpleGitOptions } from 'simple-git';
 
 @CommandDefinition({ 
     description: 'Model management',
     alias: 'm',
     parent: 'meta',  
     examples: [
-        [`w meta model`, `Performa operations agains a model`],
+        [`w meta model helloworld.wml --export json --outout helloworld.json`, `Export model as json file`],
+        [`w meta model helloworld.wml --export yaml --outout helloworld.yaml`, `Export model as yaml file`],
     ]
 })
 export class Model extends Command  { 
 
     @CommandParameter({ description: 'Workspace name', alias: 'n',})
     name: string = "";
-
-
 
     execute(yargs: any): void {
         debug(`THIS ${JSON.stringify(this)}`)
