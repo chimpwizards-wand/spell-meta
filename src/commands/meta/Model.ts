@@ -15,14 +15,21 @@ const debug = Debug("w:cli:meta:model");
     alias: 'm',
     parent: 'meta',  
     examples: [
-        [`w meta model helloworld.wml --export json --outout helloworld.json`, `Export model as json file`],
-        [`w meta model helloworld.wml --export yaml --outout helloworld.yaml`, `Export model as yaml file`],
+        [`w meta model helloworld.wml --format json --outout helloworld.json`, `Export model as json file`],
+        [`w meta model helloworld.wml --format yaml --outout helloworld.yaml`, `Export model as yaml file`],
     ]
 })
 export class Model extends Command  { 
 
-    @CommandParameter({ description: 'Workspace name', alias: 'n',})
-    name: string = "";
+    @CommandArgument({ description: 'Model to generale', name: 'model-file'})
+    @CommandParameter({ description: 'Model to generale', alias: 'm',})
+    model: string = "";
+
+    @CommandParameter({ description: 'Export format', alias: 'f', defaults: 'yaml'})
+    format: string = "yaml";    
+
+    @CommandParameter({ description: 'File name where the output will get stored', alias: 'o'})
+    outout: string = "";    
 
     execute(yargs: any): void {
         debug(`THIS ${JSON.stringify(this)}`)

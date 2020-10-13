@@ -20,8 +20,15 @@ const debug = Debug("w:cli:meta:generate");
 })
 export class Generate extends Command  { 
 
-    @CommandParameter({ description: 'Workspace name', alias: 'n',})
-    name: string = "";
+    @CommandArgument({ description: 'Model to generale', name: 'model-file'})
+    @CommandParameter({ description: 'Model to generale', alias: 'm',})
+    model: string = "";
+
+    @CommandParameter({ description: 'Template path', alias: 't',})
+    templatePath: string = "";
+
+    @CommandParameter({ description: 'Template language ejs or handlebars', alias: 'l', defaults: 'ejs'})
+    templateLanguage: string = "ejs";
 
     execute(yargs: any): void {
         debug(`THIS ${JSON.stringify(this)}`)
