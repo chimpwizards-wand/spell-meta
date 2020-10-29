@@ -1,36 +1,11 @@
-{{#each model.entities}}
-import { {{this.name}} } from './model';
-{{/each}}
-
-{{#each model.entities}}
-export const {{this.name}}s: {{this.name}}[] = [
-    {{#if this.attributes}}
-        {{#repeat 10}}
-        {
-            id: {{@index}},
-            {{#each this.attributes}}
-            {{this.name}}: {{#data-random this.name name=this.name type=this.type }}{{~/data-random}}
-                {{~#if @last}}
-                {{~else}}
-,
-                {{~/if}}
-
-            {{/each}}
-        }
-        {{~#if @last}}
-        {{~else}}
-,
-        {{~/if}}
-        {{/repeat}}
-    {{/if}}
-
-];
-
-{{/each}}
-
-
 import { InMemoryDbService, ParsedRequestUrl, RequestInfoUtilities } from 'angular-in-memory-web-api';
-import { IEntity } from '../commons/types/IEntity';
+import { IEntity } from './commons/types/IEntity';
+{{#each model.entities}}
+import { {{pluralize this.name}} } from './{{this.name}}/{{this.name}}.data';
+{{/each}}
+// ##include: data.import.{entity}.partial.ts
+
+
 export class InMemoryDB implements InMemoryDbService {
 
     createDb() {

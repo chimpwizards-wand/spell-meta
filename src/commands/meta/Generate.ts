@@ -35,6 +35,9 @@ export class Generate extends Command  {
     @CommandParameter({ description: 'Output path', alias: 'o'})
     output: string = process.cwd();   
 
+
+    partials: any = {};
+
     execute(yargs: any): void {
         debug(`THIS ${JSON.stringify(this)}`)
         debug(`YARGS ${JSON.stringify(yargs)}`)
@@ -46,6 +49,8 @@ export class Generate extends Command  {
         fs.mkdirSync(this.output,{ recursive: true });
 
         this.generateMany(model, this.templates, this.templates)
+
+        this.processPartials()
         
     }
 
@@ -72,12 +77,12 @@ export class Generate extends Command  {
     //Verify if metadata is present in the fileName and expand
     generateExpand(model: any, templates: string, fileName: string) {
         debug(`Expand filename if interpolationis required`)
-        let matches = fileName.match(/{\s*[\w\.]+\s*}/g)
 
+
+        let matches = fileName.match(/{\s*[\w\.]+\s*}/g)
         if ( fileName.includes("{")) {
             debug(`FOUND`)
         }
-
         if(matches && matches.length>0) {
             matches.forEach( (token) => {
                 let key = token.replace("{","").replace("}","")
@@ -118,6 +123,8 @@ export class Generate extends Command  {
 
         //var chunk  = fileName.match(/(-chunk)(.*)(chunk)/g);
         //if (chunk) {/
+        //server-chunk-{entityName}-chunk
+
 
         
     }
@@ -139,15 +146,88 @@ export class Generate extends Command  {
             console.log(chalk.red(`Template engine not found for ${fileName}`));
         }
 
-        let outputPath = path.join(
+        let outputPath: string = path.join(
             this.output,
             fullPath
         )
         var rootFolder = path.dirname(outputPath);
-        fs.mkdirSync(rootFolder,{ recursive: true });
-        fs.writeFileSync(outputPath, code);
-        console.log(`[${outputPath}] Created`)
+        
+        if ( outputPath.includes('.partial.')) {
+            debug(`Partial found ${outputPath}`)
+            let partialKey = path.basename(outputPath)
+            let partialData = this.partials[partialKey] || {parts: []};
+            _.merge(partialData, {
+                parts: [code]
+            });
+            this.partials[partialKey] = partialData;
 
+        } else {
+            fs.mkdirSync(rootFolder,{ recursive: true });
+            fs.writeFileSync(outputPath, code);
+            console.log(`[${outputPath}] Created`)
+        }
+
+    }
+
+    private processPartials() {
+        debug(`Process partials`)
+        //Loop tjru generated code and look for files tht need partial injection
+        this.processDiretory(this.output)
+    }
+
+    processDiretory(folder: string) {
+        debug(`Processing directory: ${folder}`)
+        if ( fs.lstatSync(folder).isDirectory() ) {
+            fs.readdirSync(folder).forEach((file) => {
+                let fileName = path.join(
+                    folder,
+                    file
+                )
+                if ( fs.lstatSync(fileName).isDirectory() ) {
+                    this.processDiretory(fileName)
+                } else {
+                    this.includePartials(fileName)
+                }
+            });
+        } else {
+            this.includePartials(folder)
+        }
+    }
+
+    includePartials(fileName: string) {
+        debug(`Processing file: ${fileName}`)
+        var source = fs.readFileSync(fileName, "utf8");
+        let matches1 = source.match(/(\/\/ ##include:)(.*)(.partial)(.*)/g)      //::>>  // ##include: data.import.{entity}.partial.ts
+        let matches = source.match(/(\/\/ ##include:)(.*).({entity})(.partial)(.*)/g)
+
+        if(matches && matches.length>0) {
+            debug(`Partial placeholder found`)
+            matches.forEach( (token) => {
+                Object.keys(this.partials).forEach( (part: any) => {    //::>>  data.import.books.partial.ts 
+                    debug(`Processing part: ${part}`)  
+                    let token2 = token.replace('// ##include: ','').replace('{entity}','(.*)');
+                    let regexpr = new RegExp(token2,'g')
+                    if (part.match(regexpr)) {
+                        debug(`Match found`)
+                        let pieces = this.partials[part].parts;
+                        let allPieces: string = ""
+                        pieces.forEach( (piece: any) => {
+                            if (allPieces.length>0) {
+                                allPieces +=  '\n';
+                            }
+                            allPieces +=  piece;                               
+                        });
+                        allPieces +=  '\n' + token ;
+                        debug(`Attaching:`)
+                        debug(allPieces)
+                        source = source.replace(token, allPieces)
+                        
+                        fs.writeFileSync(fileName, source);
+
+                    }
+                });
+            })
+        }
     }
 
     private getCommonContext(): any {
