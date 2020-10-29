@@ -1,0 +1,130 @@
+variables:
+  DEFAULT_MIN:
+    name: DEFAULT_MIN
+    value: '1'
+  DEFAULT_MAX:
+    name: DEFAULT_MAX
+    value: '100'
+  EMAIL_MASK:
+    name: EMAIL_MASK
+    value: '([a-z]*@[a-z].[a-z])'
+enumertions:
+  Status:
+    name: Status
+    values:
+      - DRAFT
+      - INREVIEW
+      - PUBLISHED
+types:
+  Address:
+    name: Address
+    attributes:
+      address1:
+        name: address1
+        type: string
+      address2:
+        name: address2
+        type: string
+      city:
+        name: city
+        type: string
+      state:
+        name: state
+        type: string
+      country:
+        name: country
+        type: string
+entities:
+  Book:
+    name: Book
+    is: IEntity
+    attributes:
+      title:
+        name: title
+        type: string
+        required: true
+      pages:
+        name: pages
+        type: number
+        min: '1'
+        max: '1000'
+      status:
+        name: status
+        type: Status
+    anotations:
+      Auth:
+        name: Auth
+        attributes:
+          properties:
+            name: access
+            value: restrict
+      Route:
+        name: Route
+        attributes:
+          properties:
+            name: handler
+            value: CRUD
+    relationships:
+      Author-Book:
+        from:
+          entity: Author
+          attribute:
+            name: book
+            show: title
+        to:
+          entity: Book
+          attribute:
+            name: editor
+        type: OneToMany
+  Author:
+    name: Author
+    is: IEntity
+    attributes:
+      name:
+        name: name
+        type: string
+        required: true
+      email:
+        name: email
+        type: string
+        mask: '${EMAIL_MASK}'
+      address:
+        name: address
+        type: Address
+    anotations:
+      Auth:
+        name: Auth
+        attributes:
+          properties:
+            name: access
+            value: restrict
+      Route:
+        name: Route
+        attributes:
+          properties:
+            name: handler
+            value: CRUD
+    relationships:
+      Author-Book:
+        from:
+          entity: Author
+          attribute:
+            name: book
+            show: title
+        to:
+          entity: Book
+          attribute:
+            name: editor
+        type: OneToMany
+relationships:
+  Author-Book:
+    from:
+      entity: Author
+      attribute:
+        name: book
+        show: title
+    to:
+      entity: Book
+      attribute:
+        name: editor
+    type: OneToMany

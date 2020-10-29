@@ -8,7 +8,7 @@ const debug = Debug("w:cli:meta");
 
 @CommandDefinition({ 
     alias: 'm',
-    description: 'Meta-generator'
+    description: 'Meta generator'
 })
 export class Meta extends Command  { 
 

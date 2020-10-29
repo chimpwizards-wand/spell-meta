@@ -25,6 +25,7 @@
     "cli-progress": "^3.8.2",
     "debug": "^4.1.1",
     "ejs": "^3.1.5",
+    "faker": "^5.1.0",
     "handlebars": "^4.7.6",
     "handlebars-helper-repeat": "^2.0.0",
     "handlebars-helpers": "^0.10.0",

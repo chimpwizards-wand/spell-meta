@@ -1,0 +1,14 @@
+/**
+  * API CODE
+  *
+  */
+  
+{{#each model.entities}}
+    {{!-- VARIABLES --}}
+    ENTITY: {{this.name}}
+    {{#if this.annotations}}
+        {{#each this.annotations}}
+            ANNOTATION: {{this.name}}
+        {{/each}}
+    {{/if}}
+{{/each}}

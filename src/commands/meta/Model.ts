@@ -9,6 +9,8 @@ import * as _ from 'lodash';
 
 const chalk = require('chalk');
 const debug = Debug("w:cli:meta:model");
+import { Parser } from '../../commons/parsers/Parser'
+import * as yaml from 'js-yaml'
 
 @CommandDefinition({ 
     description: 'Model management',
@@ -34,7 +36,18 @@ export class Model extends Command  {
     execute(yargs: any): void {
         debug(`THIS ${JSON.stringify(this)}`)
         debug(`YARGS ${JSON.stringify(yargs)}`)
+        let parser = new Parser();
+        var mapping = parser.parse(this.model);
+        
+        let outputPath = this.outout || this.model.replace(".m3",`.${this.format}`)
+        debug(`OUTPUT: ${outputPath}`)
 
+        var yml = yaml.dump(mapping);
+        var rootFolder = path.dirname(outputPath);
+        fs.mkdirSync(rootFolder,{ recursive: true });
+        fs.writeFileSync(outputPath, this.format=="yaml"?yml:JSON.stringify(mapping));
+
+        console.log(`Model [${chalk.green(this.model)}] created @ [${outputPath}]`)
 
     }
 
