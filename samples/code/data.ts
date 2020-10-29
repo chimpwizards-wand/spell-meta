@@ -5,52 +5,52 @@ export const Books: Book[] = [
         {
             id: 0,
             title: '',
-            pages: 5277,
+            pages: 42896,
             status: null
         },        {
             id: 1,
             title: '',
-            pages: 92371,
+            pages: 12026,
             status: null
         },        {
             id: 2,
             title: '',
-            pages: 49926,
+            pages: 80900,
             status: null
         },        {
             id: 3,
             title: '',
-            pages: 52165,
+            pages: 97113,
             status: null
         },        {
             id: 4,
             title: '',
-            pages: 60477,
+            pages: 58651,
             status: null
         },        {
             id: 5,
             title: '',
-            pages: 27353,
+            pages: 70086,
             status: null
         },        {
             id: 6,
             title: '',
-            pages: 32638,
+            pages: 81425,
             status: null
         },        {
             id: 7,
             title: '',
-            pages: 50461,
+            pages: 96245,
             status: null
         },        {
             id: 8,
             title: '',
-            pages: 69174,
+            pages: 23786,
             status: null
         },        {
             id: 9,
             title: '',
-            pages: 16206,
+            pages: 45939,
             status: null
         }
 ];
@@ -58,53 +58,53 @@ export const Books: Book[] = [
 export const Authors: Author[] = [
         {
             id: 0,
-            name: 'Winston Balistreri',
-            email: 'Shanel.Lockman93@gmail.com',
+            name: 'Miss Jan Emmerich',
+            email: 'Irving.Dooley94@yahoo.com',
             address: null
         },        {
             id: 1,
-            name: 'Gerardo Kris',
-            email: 'Ross_Runolfsson70@yahoo.com',
+            name: 'Bernadette Kuvalis',
+            email: 'Hyman.Jerde@hotmail.com',
             address: null
         },        {
             id: 2,
-            name: 'Marta Ortiz',
-            email: 'Jaqueline_Brakus@hotmail.com',
+            name: 'Ralph Rice',
+            email: 'Kayley_Reichert24@gmail.com',
             address: null
         },        {
             id: 3,
-            name: 'Micheal Dibbert',
-            email: 'Allie_Christiansen@hotmail.com',
+            name: 'Alberta Hagenes DDS',
+            email: 'Alexane.Stoltenberg85@yahoo.com',
             address: null
         },        {
             id: 4,
-            name: 'Geoffrey Schuster',
-            email: 'Lessie96@yahoo.com',
+            name: 'Robert Yost',
+            email: 'Joey_Christiansen@hotmail.com',
             address: null
         },        {
             id: 5,
-            name: 'Gilberto Douglas',
-            email: 'Tad50@hotmail.com',
+            name: 'Milton Mann',
+            email: 'Rashawn_Hamill@hotmail.com',
             address: null
         },        {
             id: 6,
-            name: 'Angel Marks',
-            email: 'Cory.Franecki@yahoo.com',
+            name: 'Darrell Miller',
+            email: 'Izaiah48@yahoo.com',
             address: null
         },        {
             id: 7,
-            name: 'Julie Lakin',
-            email: 'Freeman58@hotmail.com',
+            name: 'Heidi Satterfield',
+            email: 'Marshall_Roob@yahoo.com',
             address: null
         },        {
             id: 8,
-            name: 'Lula McDermott',
-            email: 'Evans.Rempel31@yahoo.com',
+            name: 'Edwin Stokes DDS',
+            email: 'Jayce_Hammes@yahoo.com',
             address: null
         },        {
             id: 9,
-            name: 'Kelli Roberts',
-            email: 'Vallie6@gmail.com',
+            name: 'Gerard Hayes',
+            email: 'Jordan13@yahoo.com',
             address: null
         }
 ];

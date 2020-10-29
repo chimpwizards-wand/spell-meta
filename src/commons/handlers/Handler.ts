@@ -6,7 +6,8 @@ import * as path from 'path';
 
 interface HandlerOptions {
     template: string, 
-    engine?: string
+    engine?: string,
+    context?: any
 }
 
 export class Handler { 
@@ -15,7 +16,7 @@ export class Handler {
         let engine = options.engine || path.extname(options.template).substr(1);
         let handler = undefined;
         if (engine == "hbs") {
-            handler =  new HandlerbarsHandler(options.template);
+            handler =  new HandlerbarsHandler(options.template,);
             handler.engine = HandlerTypes.Handlebars;
             handler.engineKey = engine;
         } else if (engine == "ejs") {

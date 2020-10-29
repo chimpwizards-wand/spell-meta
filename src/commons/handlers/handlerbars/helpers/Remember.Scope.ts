@@ -31,4 +31,5 @@ export function helper (this: any, options: any) {
 /**
  * REFERENCE:
  * - https://handlebarsjs.com/api-reference/utilities.html#handlebars-createframe-data
+ * - https://jonathanmh.com/handlebars-custom-helpers-chaining/
  */

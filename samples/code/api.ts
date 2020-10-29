@@ -2,10 +2,11 @@
   * API CODE
   *
   */
-  
-    ENTITY: Book
+
+TEST: Cars
+    ENTITY: Books
             ANNOTATION: Auth
             ANNOTATION: Route
-    ENTITY: Author
+    ENTITY: Authors
             ANNOTATION: Auth
             ANNOTATION: Route

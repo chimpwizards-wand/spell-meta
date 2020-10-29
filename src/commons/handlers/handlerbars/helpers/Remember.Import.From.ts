@@ -27,18 +27,18 @@ export function helper (this: any, value: any, options: any) {
   var buildIn = isBuiltIn(value);
 
   
-  var path = "'./commons/types'"
+  var path = `'${options.hash.path||'.'}/commons/types'`
   var type = "none"
 
   if( bag[value] && bag[value]["type"] ) {
     type = bag[value].type;
     if (bag[value].type == "type") {
-      path = "'./types'";
+      path = `'${options.hash.path||'.'}/types'`;
     } else if (bag[value].type == "enum") {
-      path = "'./enums'";
+      path = `'${options.hash.path||'.'}/enums'`;
     }
   } else {
-    path = "'./commons/types/" + value+ "'";
+    path = `'${options.hash.path||'.'}/commons/types/${value}'`;
   }
 
   debug(`VALUE: ${JSON.stringify(value)} BAG type: ${JSON.stringify(type)}`);

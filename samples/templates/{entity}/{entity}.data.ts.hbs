@@ -1,0 +1,26 @@
+{{#with model.entity}}
+import { {{this.name}} } from '../model';
+export const {{this.name}}s: {{this.name}}[] = [
+    {{#if this.attributes}}
+        {{#repeat 10}}
+        {
+            id: {{@index}},
+            {{#each this.attributes}}
+            {{this.name}}: {{#data-random this.name name=this.name type=this.type }}{{~/data-random}}
+                {{~#if @last}}
+                {{~else}}
+,
+                {{~/if}}
+
+            {{/each}}
+        }
+        {{~#if @last}}
+        {{~else}}
+,
+        {{~/if}}
+        {{/repeat}}
+    {{/if}}
+
+];
+
+{{/with}}

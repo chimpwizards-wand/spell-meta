@@ -33,7 +33,8 @@
     "jison": "^0.4.18",
     "json": "^10.0.0",
     "jsonfile": "^6.0.1",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.20",
+    "pluralize": "^8.0.0",
     "yamljs": "^0.3.0"
   },
   "devDependencies": {

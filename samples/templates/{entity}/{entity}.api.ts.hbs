@@ -2,14 +2,13 @@
   * API CODE
   *
   */
-
-TEST: {{pluralize ( _ 'capitalize' 'CAR' )}}
-{{#each model.entities}}
+  
+{{#with model.entity}}
     {{!-- VARIABLES --}}
-    ENTITY: {{pluralize (_ 'capitalize' this.name) }}
+    ENTITY: {{this.name}}
     {{#if this.annotations}}
         {{#each this.annotations}}
             ANNOTATION: {{this.name}}
         {{/each}}
     {{/if}}
-{{/each}}
+{{/with}}

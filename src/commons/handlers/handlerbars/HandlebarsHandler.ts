@@ -1,5 +1,6 @@
 import Debug from 'debug';
 const debug = Debug("w:cli:meta:generate:handlerbars");
+const _ = require('lodash');
 
 import { BaseHandler } from "../BaseHandler";
 var fs = require("fs");
@@ -8,13 +9,19 @@ var Handlebars = require('handlebars');
 
 export class HandlerbarsHandler extends  BaseHandler { 
 
-    generate(model: any): any {
+    generate(model: any, rootContext?: any): any {
         debug(`Generating code using template : ${this.template}`)
         var context = {
             model: model
         };
 
+        _.merge(context,rootContext || {});
+
         var source = fs.readFileSync(this.template, "utf8");
+
+        Object.keys(rootContext).forEach( (key) => {
+            Handlebars.registerHelper(key, rootContext[key]);
+        })
 
         Handlebars.registerHelper('utils', require('./helpers/Utils').helper);
         Handlebars.registerHelper('remember-scope', require('./helpers/Remember.Scope').helper);
@@ -25,8 +32,16 @@ export class HandlerbarsHandler extends  BaseHandler {
             return options.fn();
         });
 
+        //Override lodash helper functionality
+        Handlebars.registerHelper("_", function() {
+            var options: any = [].pop.call(arguments);
+            var func: any = [].shift.call(arguments);
+            return _[func].apply(_, arguments);
+        });
+
         Handlebars.registerHelper('remember-add', require('./helpers/Remember.Add').helper);
         Handlebars.registerHelper('data-random', require('./helpers/Data.Random').helper);
+        //Handlebars.registerHelper('chain', require('./helpers/Chain').helper);
         Handlebars.registerHelper('repeat', require('handlebars-helper-repeat'));
         var helpers = require('handlebars-helpers')({
             handlebars: Handlebars
@@ -45,4 +60,5 @@ export class HandlerbarsHandler extends  BaseHandler {
  * - https://www.npmjs.com/package/handlebars-helpers
  * - https://handlebarsjs.com/guide/block-helpers.html
  * - https://handlebarsjs.com/guide/block-helpers.html#raw-blocks
+ * - https://gist.github.com/palanik/25ef563812ecbdabe3d2e70bc8dc92b5
  */

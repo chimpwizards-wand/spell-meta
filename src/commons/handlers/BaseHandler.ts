@@ -12,5 +12,5 @@ export abstract class BaseHandler {
     constructor(protected template: string) {
     }
 
-    abstract generate(metadata: any): any;
+    abstract generate(model: any, rootContext?: any): any;
 }
