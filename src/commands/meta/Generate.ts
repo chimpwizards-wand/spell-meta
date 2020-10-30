@@ -37,7 +37,7 @@ export class Generate extends Command  {
     @CommandParameter({ description: 'Template path', alias: 't',})
     templates: string = "";
 
-    @CommandParameter({ description: 'Template engine. Currently supported: ejs and  hbs', alias: 'l'})
+    @CommandParameter({ description: 'Template engine. Currently supported: ejs and  hbs', alias: 'e'})
     engine: string|undefined = undefined;
 
     @CommandParameter({ description: 'Output path', alias: 'o'})
