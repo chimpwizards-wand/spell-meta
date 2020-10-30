@@ -1,0 +1,13 @@
+<%# for each element onthe model -%>
+<%_ if (model.variables) { -%>
+<%_ for( let key in  model.variables) { -%>
+    <%_ let variable = model.variables[key]; -%>
+    <%_ if (variable.name) { -%>
+        <%_ if (typeof variable.value == "string") { -%>
+const <%=variable.name%> = '<%=variable.value%>';
+        <%_ } else { -%>
+const <%=variable.name%> = <%=variable.value%>;
+        <%_ } -%>
+     <%_ } -%>
+<%_ } -%>
+<%_ } -%>
