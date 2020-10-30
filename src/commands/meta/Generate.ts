@@ -17,7 +17,7 @@ import { Handler } from '../../commons/handlers/Handler'
     alias: 'g',
     parent: 'meta',  
     examples: [
-        [`w meta generate --model helloworld.me --templates ./templates --output ./src`, `Generate code based on a template`],
+        [`w meta generate --model helloworld.m3 --templates ./templates --output ./src`, `Generate code based on a template.`],
     ]
 })
 export class Generate extends Command  { 
