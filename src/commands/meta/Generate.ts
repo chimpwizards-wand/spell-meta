@@ -14,6 +14,7 @@ import { Handler } from '../../commons/handlers/Handler'
 
 var memFs = require("mem-fs");
 var editor = require("mem-fs-editor");
+var File = require('vinyl');
 
 var store = memFs.create();
 //var fs = editor.create(store);
@@ -53,7 +54,7 @@ export class Generate extends Command  {
 
         debug(`OUTPUT: ${this.output}`)
         
-        fs.mkdirSync(this.output,{ recursive: true });
+        //fs.mkdirSync(this.output,{ recursive: true });
 
         this.generateMany(model, this.templates, this.templates)
 
@@ -72,6 +73,8 @@ export class Generate extends Command  {
     //Recursively process all files/folders
     generateMany(model: any, templates: string, folder: string) {
         debug(`Processing directory: ${folder}`)
+        //let file = store.get(folder)
+        //if ( file.isDirectory() ) {        
         if ( fs.lstatSync(folder).isDirectory() ) {
             fs.readdirSync(folder).forEach((file: any) => {
                 let fileName = path.join(
@@ -272,4 +275,5 @@ export function register ():any {
  * REFERENCE:
  * - https://regexr.com/
  * - https://www.npmjs.com/package/mem-fs-editor
+ * - https://developer.aliyun.com/mirror/npm/package/vinyl
  */
