@@ -2,53 +2,53 @@ import { Author } from '../model';
 export const Authors: Author[] = [
         {
             id: 0,
-            name: 'Vicky Champlin',
-            email: 'Albertha14@gmail.com',
+            name: 'Denise Senger',
+            email: 'Adriana60@yahoo.com',
             address: null
         },        {
             id: 1,
-            name: 'Theodore Von',
-            email: 'Ashleigh.Miller@yahoo.com',
+            name: 'Donald Torphy',
+            email: 'Ruthe19@yahoo.com',
             address: null
         },        {
             id: 2,
-            name: 'Melissa Schroeder PhD',
-            email: 'Tamara44@hotmail.com',
+            name: 'Fred Sawayn',
+            email: 'Jettie.Hirthe@gmail.com',
             address: null
         },        {
             id: 3,
-            name: 'Mr. Maria Weissnat',
-            email: 'Nelson.Franecki68@gmail.com',
+            name: 'Mr. Tim McClure',
+            email: 'Colton_Sawayn@gmail.com',
             address: null
         },        {
             id: 4,
-            name: 'Francis Hayes',
-            email: 'Verda_Roob@gmail.com',
+            name: 'Woodrow Fadel',
+            email: 'Missouri.Hagenes51@hotmail.com',
             address: null
         },        {
             id: 5,
-            name: 'Hubert Hartmann',
-            email: 'Cecil.Jacobi24@yahoo.com',
+            name: 'Willard Schoen',
+            email: 'Susie87@gmail.com',
             address: null
         },        {
             id: 6,
-            name: 'Sarah D''Amore',
-            email: 'Jessika_Wilkinson@yahoo.com',
+            name: 'Ms. Ann Emard',
+            email: 'Roel4@gmail.com',
             address: null
         },        {
             id: 7,
-            name: 'Gladys Cartwright',
-            email: 'Chyna.Jacobson@hotmail.com',
+            name: 'Gilberto Schamberger',
+            email: 'Dwight.Hills90@hotmail.com',
             address: null
         },        {
             id: 8,
-            name: 'Miss Gregory Ratke',
-            email: 'Henri.Cremin@gmail.com',
+            name: 'Ana Kutch',
+            email: 'Keon_Bechtelar36@gmail.com',
             address: null
         },        {
             id: 9,
-            name: 'Andres Wyman PhD',
-            email: 'Kamille_Harris@yahoo.com',
+            name: 'Rochelle Von',
+            email: 'Magnus.Paucek@yahoo.com',
             address: null
         }
 ];

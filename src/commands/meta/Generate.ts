@@ -3,7 +3,7 @@ import { Command } from  '@chimpwizards/wand'
 import { Config } from '@chimpwizards/wand'
 import { CommandDefinition, CommandParameter, CommandArgument } from '@chimpwizards/wand/commons/command/'
 
-import * as fs from 'fs';
+
 import * as path from 'path';
 import * as _ from 'lodash';  
 const pluralize = require('pluralize');
@@ -11,6 +11,13 @@ const chalk = require('chalk');
 const debug = Debug("w:cli:meta:generate");
 import { Parser } from '../../commons/parsers/Parser'
 import { Handler } from '../../commons/handlers/Handler'
+
+var memFs = require("mem-fs");
+var editor = require("mem-fs-editor");
+
+var store = memFs.create();
+//var fs = editor.create(store);
+import * as fs from 'fs';
 
 @CommandDefinition({ 
     description: 'Code generator',
@@ -45,19 +52,28 @@ export class Generate extends Command  {
         var model = parser.parse(this.model);
 
         debug(`OUTPUT: ${this.output}`)
+        
         fs.mkdirSync(this.output,{ recursive: true });
 
         this.generateMany(model, this.templates, this.templates)
 
         this.processPartials(this.output)
+
+        this.saveOnDisk()
         
+    }
+
+    saveOnDisk() {
+        // fs.commit( () => {
+        //     debug(`Saved`)
+        // })
     }
 
     //Recursively process all files/folders
     generateMany(model: any, templates: string, folder: string) {
         debug(`Processing directory: ${folder}`)
         if ( fs.lstatSync(folder).isDirectory() ) {
-            fs.readdirSync(folder).forEach((file) => {
+            fs.readdirSync(folder).forEach((file: any) => {
                 let fileName = path.join(
                     folder,
                     file
@@ -164,7 +180,7 @@ export class Generate extends Command  {
     private processPartials(folder: string) {
         debug(`Processing directory: ${folder}`)
         if ( fs.lstatSync(folder).isDirectory() ) {
-            fs.readdirSync(folder).forEach((file) => {
+            fs.readdirSync(folder).forEach((file: any) => {
                 let fileName = path.join(
                     folder,
                     file
@@ -204,7 +220,7 @@ export class Generate extends Command  {
 
             if(matches && matches.length>0) {
                 debug(`Partial placeholder found`)
-                matches.forEach( (token) => {
+                matches.forEach( (token: string) => {
                     Object.keys(this.partials).forEach( (part: any) => {    //::>>  data.import.books.partial.ts 
                         debug(`Processing part: ${part}`)  
                         
