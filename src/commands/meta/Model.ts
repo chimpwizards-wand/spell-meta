@@ -17,8 +17,8 @@ import * as yaml from 'js-yaml'
     alias: 'm',
     parent: 'meta',  
     examples: [
-        [`w meta model helloworld.wml --format json --outout helloworld.json`, `Export model as json file`],
-        [`w meta model helloworld.wml --format yaml --outout helloworld.yaml`, `Export model as yaml file`],
+        [`w meta model helloworld.m3 --format json --outout helloworld.json`, `Export model as json file`],
+        [`w meta model helloworld.m3 --format yaml --outout helloworld.yaml`, `Export model as yaml file`],
     ]
 })
 export class Model extends Command  { 
