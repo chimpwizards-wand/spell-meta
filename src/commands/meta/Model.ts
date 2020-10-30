@@ -23,11 +23,11 @@ import * as yaml from 'js-yaml'
 })
 export class Model extends Command  { 
 
-    @CommandArgument({ description: 'Model to generale', name: 'model-file'})
-    @CommandParameter({ description: 'Model to generale', alias: 'm',})
+    @CommandArgument({ description: 'Model to generate. Currently supported: m3 and  nomnoml models', name: 'model-file'})
+    @CommandParameter({ description: 'Model to generate. Currently supported: m3 and  nomnoml models', alias: 'm',})
     model: string = "";
 
-    @CommandParameter({ description: 'Export format', alias: 'f', defaults: 'yaml'})
+    @CommandParameter({ description: 'Export format. yaml or json', alias: 'f', defaults: 'yaml'})
     format: string = "yaml";    
 
     @CommandParameter({ description: 'File name where the output will get stored', alias: 'o'})

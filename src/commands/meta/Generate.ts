@@ -30,8 +30,8 @@ import * as fs from 'fs';
 })
 export class Generate extends Command  { 
 
-    @CommandArgument({ description: 'Model to generale', name: 'model-file'})
-    @CommandParameter({ description: 'Model to generale', alias: 'm',})
+    @CommandArgument({ description: 'Model to generate. Currently supported: m3 and  nomnoml models', name: 'model-file'})
+    @CommandParameter({ description: 'Model to generate. Currently supported: m3 and  nomnoml models', alias: 'm',})
     model: string = "";
 
     @CommandParameter({ description: 'Template path', alias: 't',})
