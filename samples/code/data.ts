@@ -2,10 +2,6 @@ import { InMemoryDbService, ParsedRequestUrl, RequestInfoUtilities } from 'angul
 import { IEntity } from './commons/types/IEntity';
 import { Books } from './Book/Book.data';
 import { Authors } from './Author/Author.data';
-import { Books } from './Book/Book.data';
-
-import { Authors } from './Author/Author.data';
-
 // ##include: data.import.{entity}.partial.ts
 
 

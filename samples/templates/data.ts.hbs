@@ -1,8 +1,5 @@
 import { InMemoryDbService, ParsedRequestUrl, RequestInfoUtilities } from 'angular-in-memory-web-api';
 import { IEntity } from './commons/types/IEntity';
-{{#each model.entities}}
-import { {{pluralize this.name}} } from './{{this.name}}/{{this.name}}.data';
-{{/each}}
 // ##include: data.import.{entity}.partial.ts
 
 

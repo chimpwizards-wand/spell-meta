@@ -197,37 +197,53 @@ export class Generate extends Command  {
     includePartials(fileName: string) {
         debug(`Processing file: ${fileName}`)
         var source = fs.readFileSync(fileName, "utf8");
-        let matches1 = source.match(/(\/\/ ##include:)(.*)(.partial)(.*)/g)      //::>>  // ##include: data.import.{entity}.partial.ts
-        let matches = source.match(/(\/\/ ##include:)(.*).({entity})(.partial)(.*)/g)
 
-        if(matches && matches.length>0) {
-            debug(`Partial placeholder found`)
-            matches.forEach( (token) => {
-                Object.keys(this.partials).forEach( (part: any) => {    //::>>  data.import.books.partial.ts 
-                    debug(`Processing part: ${part}`)  
-                    let token2 = token.replace('// ##include: ','').replace('{entity}','(.*)');
-                    let regexpr = new RegExp(token2,'g')
-                    if (part.match(regexpr)) {
-                        debug(`Match found`)
-                        let pieces = this.partials[part].parts;
-                        let allPieces: string = ""
-                        pieces.forEach( (piece: any) => {
-                            if (allPieces.length>0) {
-                                allPieces +=  '\n';
-                            }
-                            allPieces +=  piece;                               
-                        });
-                        allPieces +=  '\n' + token ;
-                        debug(`Attaching:`)
-                        debug(allPieces)
-                        source = source.replace(token, allPieces)
+        let regexprs: any[] = [ 
+            {
+                expr: new RegExp("(\/\/ ##include:)(.*).({entity})(.partial)(.*)","g"), //CODE
+                remove: '// ##include: '
+            },
+            {
+                expr: new RegExp(`("##include":)(.*).({entity})(.partial)(.*)(")`,"g"), //JSON
+                remove: '"##include": '
+            },
+            {
+                expr: new RegExp("(## ##include:)(.*).({entity})(.partial)(.*)","g"),   //YAML
+                remove: '## ##include: '
+            }
+        ];
+
+        regexprs.forEach( (regexpr) => {
+            let matches = source.match(regexpr.expr)
+
+            if(matches && matches.length>0) {
+                debug(`Partial placeholder found`)
+                matches.forEach( (token) => {
+                    Object.keys(this.partials).forEach( (part: any) => {    //::>>  data.import.books.partial.ts 
+                        debug(`Processing part: ${part}`)  
                         
-                        fs.writeFileSync(fileName, source);
+                        let token2 = token.replace(regexpr['remove'],'').replace('{entity}','(.*)');
 
-                    }
-                });
-            })
-        }
+                        let tregexpr = new RegExp(token2,'g')
+                        if (part.match(tregexpr)) {
+                            debug(`Match found`)
+                            let pieces = this.partials[part].parts;
+                            let allPieces: string = ""
+                            pieces.forEach( (piece: any) => {
+                                allPieces +=  piece;                               
+                            });
+                            allPieces +=  token ;
+                            debug(`Attaching:`)
+                            debug(allPieces)
+                            source = source.replace(token, allPieces)
+                            
+                            fs.writeFileSync(fileName, source);
+
+                        }
+                    });
+                })
+            }
+        });
     }
 
     private getCommonContext(): any {
