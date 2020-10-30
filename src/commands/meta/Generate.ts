@@ -35,7 +35,6 @@ export class Generate extends Command  {
     @CommandParameter({ description: 'Output path', alias: 'o'})
     output: string = process.cwd();   
 
-
     partials: any = {};
 
     execute(yargs: any): void {
@@ -50,7 +49,7 @@ export class Generate extends Command  {
 
         this.generateMany(model, this.templates, this.templates)
 
-        this.processPartials()
+        this.processPartials(this.output)
         
     }
 
@@ -120,13 +119,6 @@ export class Generate extends Command  {
             this.generateOne(model, templates, fileName)
         }
 
-
-        //var chunk  = fileName.match(/(-chunk)(.*)(chunk)/g);
-        //if (chunk) {/
-        //server-chunk-{entityName}-chunk
-
-
-        
     }
 
     //Process one file
@@ -169,13 +161,7 @@ export class Generate extends Command  {
 
     }
 
-    private processPartials() {
-        debug(`Process partials`)
-        //Loop tjru generated code and look for files tht need partial injection
-        this.processDiretory(this.output)
-    }
-
-    processDiretory(folder: string) {
+    private processPartials(folder: string) {
         debug(`Processing directory: ${folder}`)
         if ( fs.lstatSync(folder).isDirectory() ) {
             fs.readdirSync(folder).forEach((file) => {
@@ -184,7 +170,7 @@ export class Generate extends Command  {
                     file
                 )
                 if ( fs.lstatSync(fileName).isDirectory() ) {
-                    this.processDiretory(fileName)
+                    this.processPartials(fileName)
                 } else {
                     this.includePartials(fileName)
                 }
@@ -269,4 +255,5 @@ export function register ():any {
 /**
  * REFERENCE:
  * - https://regexr.com/
+ * - https://www.npmjs.com/package/mem-fs-editor
  */

@@ -3,52 +3,52 @@ export const Books: Book[] = [
         {
             id: 0,
             title: '',
-            pages: 3258,
+            pages: 73328,
             status: null
         },        {
             id: 1,
             title: '',
-            pages: 12484,
+            pages: 41169,
             status: null
         },        {
             id: 2,
             title: '',
-            pages: 7048,
+            pages: 56048,
             status: null
         },        {
             id: 3,
             title: '',
-            pages: 65625,
+            pages: 97175,
             status: null
         },        {
             id: 4,
             title: '',
-            pages: 31681,
+            pages: 92015,
             status: null
         },        {
             id: 5,
             title: '',
-            pages: 42918,
+            pages: 29927,
             status: null
         },        {
             id: 6,
             title: '',
-            pages: 125,
+            pages: 89285,
             status: null
         },        {
             id: 7,
             title: '',
-            pages: 34307,
+            pages: 80982,
             status: null
         },        {
             id: 8,
             title: '',
-            pages: 55005,
+            pages: 20702,
             status: null
         },        {
             id: 9,
             title: '',
-            pages: 4572,
+            pages: 27426,
             status: null
         }
 ];
