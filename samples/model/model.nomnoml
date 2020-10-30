@@ -11,6 +11,23 @@
   [Status]->[PUBLISHED]
 ]
 
+[Book] --:> [<note> annotation1|
+path: /authors/:author/:book
+type: route
+handler: CRUD]
+
+[Book] --:> [<note> annotation2|
+path: /books
+type: route
+handler: CRUD]
+
+[Book] --:> [<note> annotation3|
+roles: *
+type: auth
+action: *
+access=restricted]
+
+
 [<abstract>Entity]<:--[Author]
 [<abstract>Entity]<:--[Book]
 
